@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- Indica ao browser que este documento usa HTML5 -->
+
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Elemento raiz da página.
+     O atributo xmlns:th declara o namespace do Thymeleaf,
+     para poderes usar atributos como th:text e th:each -->
+
+<head>
+    <meta charset="UTF-8">
+
+
+    <title th:text="${titulo}">Index</title>
+    <!-- Se existir a variável "titulo" enviada pelo controller,
+         Se não existir, aparece "Index". -->
+
+    <style>
+        /* Estilo básico da tabela */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        /* Estilo das células e cabeçalhos */
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        /* Cor de fundo do cabeçalho da tabela */
+        th {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <!-- Mostra o valor da variável "titulo" enviada pelo controller.
+         model.addAttribute("titulo", "Página Principal nº2"); -->
+
+    <p th:text="${cenas}"></p>
+    <h2>Lista de Manutenções</h2>
+    <!-- Título fixo da secção -->
+
+    <table>
+        <!-- Tabela onde vão ser mostrados os fornecedores -->
+        <thead>
+            <!-- Cabeçalho da tabela -->
+            <tr>
+                <th>Descricao</th>
+                <th>Tipo</th>
+                <th>Custo</th>
+                <th>Concluida</th>
+            </tr>
+        </thead>
+
+
+            <tbody>
+                <!-- Corpo da tabela -->
+                <tr th:each="manu : ${manutencoes}">
+                    <!-- O Thymeleaf repete esta linha uma vez por cada objeto
+                        existente na lista "manutencoes".
+                        "manutencoes" é o nome da variável temporária para cada item.
+                        "${manutencoes}" é a lista enviada pelo controller.
+    
+                        Exemplo no controller:
+                        model.addAttribute("manutencoes", repo.findAll());
+                    -->
+                    <td th:text="${manu.descricao}"></td>
+                    <td th:text="${manu.tipo}"></td>
+                    <td th:text="${manu.custo}"></td>
+                    <td th:text="${manu.concluida}"></td>
+            
+                </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+</body>
+</html>
